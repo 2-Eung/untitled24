@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>매출 데이터 추가</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" /> <!--css 와 연결-->
+</head>
+<body>
+    <h1>➕ 신규 매출 입력</h1>
+    <form th:action="@{/sales/add}" method="post" class="form-container">
+        <div class="form-row">
+            <label>판매일: <!--인풋에 대한 라벨-->
+                <input type="date" name="saleDate" required /> <!--이름을 맞춰줘야 컨트롤러와 연결된다.-->
+            </label>
+        </div>
+        <div class="form-row">
+            <label>고객 ID:
+                <input type="number" name="customerId" min="1" required /> <!--이름을 맞춰줘야 컨트롤러와 연결된다.-->
+            </label>
+        </div>
+        <div class="form-row">
+            <label>금액:                          <!--0.01 씩 증가한다-->
+                <input type="number" name="amount" step="0.01" min="0" required /> <!--이름을 맞춰줘야 컨트롤러와 연결된다.-->
+            </label>
+        </div>
+        <div class="form-actions">
+            <button type="submit">저장</button>
+            <a href="/" class="cancel-link">취소</a> <!--a 태그는 경로가 필요하다 href="/"-->
+        </div>
+    </form>
+</body>
+</html>
