@@ -1,10 +1,13 @@
 package com.example.untitled24.repository;
 
+import com.example.untitled24.model.DailySales;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository // 레포지토리 어노테이션
 public class DashboardRepository {
@@ -13,6 +16,21 @@ public class DashboardRepository {
 //    @Autowired // 생략되어있음
     public DashboardRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    // DailySales 모델 과 관련이 있음 22/23 일자꺼 에도 썻으니 확인해보자
+    private final RowMapper<DailySales> dailySalesRowMapper = (resultSet, rowNum) ->
+            new DailySales(
+                    resultSet.getDate("sale_date").toLocalDate(), // 날짜 데이터로 바꿔준다.
+                    resultSet.getBigDecimal("total_amount"),
+                    resultSet.getInt("order_count")
+            );
+    // 데이터베이스 와 관련이 있음 22/23 일자꺼 에도 썻으니 확인해보자
+    public List<DailySales> findDailySales() {
+        return jdbcTemplate.query(
+                "SELECT * FROM daily_sales", // 테이블이 아니라 뷰 를 꺼내오는것
+                dailySalesRowMapper // 뷰 는 테이블을 재정리해서 만든 가상의 테이블이 뷰 이다 (계산까지해준다!!!!)
+        );
     }
                         // LocalDate : 자바의 시간데이터 / BigDecimal : 돈관련 데이터
     public void saveSale(LocalDate saleDate, int customerId, BigDecimal amount) {
