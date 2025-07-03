@@ -21,7 +21,8 @@
     <tbody>
     <tr th:each="sale: ${sales}">
       <td th:text="${sale.saleDate}">2025-01-01</td> <!--흰 글씨는 데이터를 가져오기전에 보이는 메세지-->
-      <td th:text="${#numbers.formatDecimal(sale.totalAmount, 0, 'COMMA', 2, 'POINT')}">0</td>
+      <td th:text="${#numbers.formatDecimal(sale.totalAmount, 0, 'COMMA', 2, 'POINT')}">0</td> <!--금액데이터-->
+      <!--넘버스는 타임리프내에 있음 / 포멧은 데시멀 형태로 만든다 데시멀은10진수 / 콤마는 1,000 단위마다 콤마 / 2 포인트 는 소수점2자리-->
       <td th:text="${sale.orderCount}">0</td>
     </tr>
     </tbody>

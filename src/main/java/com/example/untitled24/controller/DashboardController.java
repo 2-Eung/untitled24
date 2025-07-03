@@ -1,5 +1,6 @@
 package com.example.untitled24.controller;
 
+import com.example.untitled24.model.CustomerRank;
 import com.example.untitled24.model.DailySales;
 import com.example.untitled24.repository.DashboardRepository;
 import org.springframework.stereotype.Controller;
@@ -23,4 +24,15 @@ public class DashboardController {
 
         return "daily-sales";
     }
+
+    @GetMapping("/customer-ranking")
+    public String customerRanking(Model model) {
+        List<CustomerRank> ranks = dashboardRepository.findCustomerRankings();
+        model.addAttribute("ranks", ranks);
+
+        return "customer-ranking";
+    }
+
+
+
 }
