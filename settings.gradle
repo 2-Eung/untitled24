@@ -1,1 +1,12 @@
+pluginManagement { // build.gradle 의 java { toolchain 을 인식하지못해서
+    repositories {     // 추가하는 '플러그인' ( AWS 에서 배포할때 )
+        gradlePluginPortal()               // 현 위치에 작성해야하는것 유의 ( rootProject 위쪽 )
+        mavenCentral()
+    }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
 rootProject.name = 'untitled24'
